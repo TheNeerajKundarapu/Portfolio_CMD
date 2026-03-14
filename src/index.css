@@ -1,0 +1,172 @@
+:root {
+  --bg-color: #0c0c0c;
+  --terminal-green: #00ff41;
+  --terminal-amber: #ffb000;
+  --text-primary: var(--terminal-green);
+  --font-family: 'Courier New', Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CRT Screen Effect */
+.crt-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.crt-container::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+}
+
+.crt-container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
+}
+
+.terminal-window {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-green) transparent;
+}
+
+.terminal-window::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-window::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-green);
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.prompt {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--terminal-green);
+  font-family: var(--font-family);
+  font-size: 1.1rem;
+  width: 100%;
+  outline: none;
+}
+
+.output {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Animations */
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 3;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+  opacity: 0.1;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100px; }
+}
+
+.typewriter {
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  background-color: var(--terminal-green);
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
